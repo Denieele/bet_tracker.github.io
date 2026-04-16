@@ -51,6 +51,17 @@ tr:hover td{background:var(--surface2)}
 .pnl-neutral{color:var(--muted);font-family:var(--mono)}
 .del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:2px 6px;border-radius:4px;transition:color 0.15s}
 .del-btn:hover{color:var(--red)}
+.action-btns{display:flex;gap:4px;align-items:center}
+.act-btn{background:none;border:1px solid var(--border);border-radius:5px;cursor:pointer;font-family:var(--mono);font-size:10px;padding:3px 7px;transition:all 0.15s;white-space:nowrap}
+.act-win{color:var(--accent);border-color:rgba(200,241,53,0.25)}
+.act-win:hover{background:rgba(200,241,53,0.1)}
+.act-win.active{background:rgba(200,241,53,0.15);border-color:rgba(200,241,53,0.5)}
+.act-loss{color:var(--red);border-color:rgba(255,77,77,0.25)}
+.act-loss:hover{background:rgba(255,77,77,0.1)}
+.act-loss.active{background:rgba(255,77,77,0.15);border-color:rgba(255,77,77,0.5)}
+.act-wait{color:var(--muted);border-color:var(--border)}
+.act-wait:hover{background:var(--surface2)}
+.act-wait.active{background:var(--surface2);color:var(--text)}
 .empty{padding:3rem;text-align:center;color:var(--muted);font-family:var(--mono);font-size:13px}
 .form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:700px}
 .form-section-title{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
@@ -303,10 +314,14 @@ function renderBets(){
   else if(filter!=='all')list=list.filter(b=>b.result===filter);
   const cont=document.getElementById('bets-table');
   if(!list.length){cont.innerHTML='<div class="empty">// немає ставок</div>';return;}
-  cont.innerHTML=`<table><thead><tr><th>Подія</th><th>Тип</th><th>Ставка</th><th>Кєф</th><th>P&L</th><th>Статус</th><th></th></tr></thead><tbody>${list.map(b=>{
+  cont.innerHTML=`<table><thead><tr><th>Подія</th><th>Тип</th><th>Ставка</th><th>Кєф</th><th>P&L</th><th>Дія</th><th></th></tr></thead><tbody>${list.map(b=>{
     const p=pnl(b);
     const pStr=b.result==='pending'?'<span class="pnl-neutral">—</span>':`<span class="${p>=0?'pnl-pos':'pnl-neg'}">${p>=0?'+':''}${p.toFixed(0)}₴</span>`;
-    const status=b.result==='win'?'<span class="status-win">WIN</span>':b.result==='loss'?'<span class="status-loss">LOSS</span>':'<span class="status-pending">WAIT</span>';
+    const actions=`<div class="action-btns">
+      <button class="act-btn act-win${b.result==='win'?' active':''}" onclick="setResult(${b.id},'win')">WIN</button>
+      <button class="act-btn act-loss${b.result==='loss'?' active':''}" onclick="setResult(${b.id},'loss')">LOSS</button>
+      <button class="act-btn act-wait${b.result==='pending'?' active':''}" onclick="setResult(${b.id},'pending')">WAIT</button>
+    </div>`;
     let eventCell;
     if(b.type==='express'&&b.legs){
       eventCell=`<div class="event-main">Експрес ×${b.legs.length}</div><div style="margin-top:5px">${b.legs.map(l=>`
@@ -319,10 +334,11 @@ function renderBets(){
     } else {
       eventCell=`<div class="event-main">${b.event}</div><div style="margin-top:5px;display:flex;gap:6px;align-items:center"><span class="sport-badge">${b.sport}</span>${b.outcome?`<span class="outcome-tag">${b.outcome}</span>`:''}</div>`;
     }
-    return`<tr><td style="max-width:300px">${eventCell}</td><td>${b.type==='express'?'<span class="badge-express">EXPRES</span>':'<span class="badge-single">SINGLE</span>'}</td><td style="font-family:var(--mono);white-space:nowrap">${b.stake}₴</td><td style="font-family:var(--mono)">${b.odds}</td><td>${pStr}</td><td>${status}</td><td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td></tr>`;
+    return`<tr><td style="max-width:300px">${eventCell}</td><td>${b.type==='express'?'<span class="badge-express">EXPRES</span>':'<span class="badge-single">SINGLE</span>'}</td><td style="font-family:var(--mono);white-space:nowrap">${b.stake}₴</td><td style="font-family:var(--mono)">${b.odds}</td><td>${pStr}</td><td>${actions}</td><td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td></tr>`;
   }).join('')}</tbody></table>`;
 }
-function deleteBet(id){if(!confirm('Видалити?'))return;bets=bets.filter(b=>b.id!==id);save();render();}
+function setResult(id,result){const b=bets.find(b=>b.id===id);if(b){b.result=result;save();render();}}
+function deleteBet(id){bets=bets.filter(b=>b.id!==id);save();render();}
 function addBet(){
   const msg=document.getElementById('add-msg');
   if(currentType==='single'){
