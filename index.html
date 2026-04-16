@@ -690,7 +690,7 @@ function parsePaste(){
   for(let i=0;i<lines.length;i++){
     const l=lines[i].toLowerCase();
     // Pattern: "16 квіт. 2026 р., 14:00" or "16.04.2026 14:00" or "2026-04-16 14:00"
-    const ukMatch=l.match(/(\d{1,2})\s+([а-яa-z]+)\.?\s+(\d{4})\s*р?\.?,?\s*(\d{1,2}):(\d{2})/);
+    const ukMatch=l.match(/(\d{1,2})\s+([\wіїєа-я]+)\.?\s+(\d{4})[^0-9]*(\d{1,2}):(\d{2})/u);
     const dotMatch=l.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2}):(\d{2})/);
     const isoMatch=l.match(/(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2})/);
     const timeOnly=l.match(/^(\d{1,2}):(\d{2})$/);
