@@ -37,9 +37,10 @@ td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;vertic
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--surface2)}
 .event-main{font-weight:500;color:var(--text)}
-.event-leg{display:flex;align-items:center;gap:6px;margin-top:3px}
-.sport-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.event-leg{display:flex;align-items:baseline;gap:6px;margin-top:3px;flex-wrap:wrap}
+.sport-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0;margin-top:5px}
 .sport-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-family:var(--mono);background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.outcome-tag{display:inline-block;padding:1px 6px;border-radius:3px;font-size:10px;font-family:var(--mono);background:rgba(200,241,53,0.08);color:var(--accent);border:1px solid rgba(200,241,53,0.15)}
 .badge-express{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,159,255,0.2);font-family:var(--mono)}
 .badge-single{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:var(--surface2);color:var(--muted);border:1px solid var(--border);font-family:var(--mono)}
 .status-win{display:inline-block;padding:2px 10px;border-radius:4px;font-size:11px;font-family:var(--mono);background:rgba(200,241,53,0.1);color:var(--accent);border:1px solid rgba(200,241,53,0.2)}
@@ -51,9 +52,10 @@ tr:hover td{background:var(--surface2)}
 .del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:2px 6px;border-radius:4px;transition:color 0.15s}
 .del-btn:hover{color:var(--red)}
 .empty{padding:3rem;text-align:center;color:var(--muted);font-family:var(--mono);font-size:13px}
-.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:680px}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:700px}
 .form-section-title{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
 .form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
+.form-row-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:12px;margin-bottom:12px}
 .form-group{display:flex;flex-direction:column;gap:6px}
 .form-group label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
 .form-group input,.form-group select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px;font-family:var(--sans);font-size:14px;transition:border-color 0.15s;width:100%}
@@ -65,12 +67,13 @@ tr:hover td{background:var(--surface2)}
 .divider{border:none;border-top:1px solid var(--border);margin:20px 0}
 .legs-container{margin-bottom:16px}
 .leg{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
-.leg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.leg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:12px}
 .leg-num{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em}
 .leg-remove{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:0 4px;transition:color 0.15s}
 .leg-remove:hover{color:var(--red)}
-.leg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
-.add-leg-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px dashed var(--border2);border-radius:8px;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;cursor:pointer;width:100%;transition:all 0.15s;margin-bottom:16px}
+.leg-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:10px}
+.leg-grid-3{display:grid;grid-template-columns:1fr 1fr 1fr;gap:10px}
+.add-leg-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px dashed var(--border2);border-radius:8px;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;cursor:pointer;width:100%;transition:all 0.15s;margin-bottom:16px;letter-spacing:0.05em}
 .add-leg-btn:hover{border-color:var(--accent);color:var(--accent)}
 .odds-display{background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
 .odds-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em}
@@ -82,6 +85,10 @@ tr:hover td{background:var(--surface2)}
 .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
 .chart-title{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem}
 .chart-wrap{position:relative;width:100%}
+@media(max-width:900px){
+  .leg-grid-3{grid-template-columns:1fr 1fr}
+  .form-row-3{grid-template-columns:1fr 1fr}
+}
 @media(max-width:768px){
   .shell{grid-template-columns:1fr}
   .sidebar{position:fixed;bottom:0;left:0;right:0;height:auto;flex-direction:row;padding:0.75rem 1rem;border-right:none;border-top:1px solid var(--border);z-index:100;overflow-x:auto}
@@ -91,8 +98,7 @@ tr:hover td{background:var(--surface2)}
   .main{padding:1.25rem;padding-bottom:80px}
   .metrics{grid-template-columns:repeat(2,1fr)}
   .charts-grid{grid-template-columns:1fr}
-  .form-row{grid-template-columns:1fr}
-  .leg-row{grid-template-columns:1fr}
+  .form-row,.form-row-3,.leg-grid,.leg-grid-3{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -103,9 +109,11 @@ tr:hover td{background:var(--surface2)}
     <button class="nav-btn active" onclick="showPage('bets')"><span class="nav-icon">◈</span> Ставки</button>
     <button class="nav-btn" onclick="showPage('analytics')"><span class="nav-icon">◎</span> Аналітика</button>
     <button class="nav-btn" onclick="showPage('add')"><span class="nav-icon">+</span> Додати</button>
-    <div class="sidebar-footer">v2.0 · LOCAL STORAGE</div>
+    <div class="sidebar-footer">v3.0 · LOCAL STORAGE</div>
   </nav>
   <main class="main">
+
+    <!-- BETS -->
     <div id="page-bets" class="page active">
       <div class="page-title">// ставки</div>
       <div class="metrics" id="metrics"></div>
@@ -122,6 +130,7 @@ tr:hover td{background:var(--surface2)}
       </div>
     </div>
 
+    <!-- ANALYTICS -->
     <div id="page-analytics" class="page">
       <div class="page-title">// аналітика</div>
       <div class="metrics" id="metrics2"></div>
@@ -141,6 +150,7 @@ tr:hover td{background:var(--surface2)}
       </div>
     </div>
 
+    <!-- ADD -->
     <div id="page-add" class="page">
       <div class="page-title">// нова ставка</div>
       <div class="form-card">
@@ -149,6 +159,8 @@ tr:hover td{background:var(--surface2)}
           <button class="type-btn active" id="btn-single" onclick="setType('single')">ОДИНОЧНА</button>
           <button class="type-btn" id="btn-express" onclick="setType('express')">ЕКСПРЕС</button>
         </div>
+
+        <!-- SINGLE -->
         <div id="single-fields">
           <div class="form-row">
             <div class="form-group" style="grid-column:1/-1">
@@ -156,20 +168,24 @@ tr:hover td{background:var(--surface2)}
               <input type="text" id="f-event" placeholder="Team A vs Team B">
             </div>
           </div>
-          <div class="form-row">
+          <div class="form-row-3">
             <div class="form-group">
               <label>Спорт</label>
               <select id="f-sport"><option>Хокей</option><option>Футбол</option><option>CS2</option><option>LoL</option><option>Valorant</option><option>Баскетбол</option><option>Інше</option></select>
             </div>
             <div class="form-group">
-              <label>Ставка (₴)</label>
-              <input type="number" id="f-stake" placeholder="100">
+              <label>Ісход</label>
+              <input type="text" id="f-outcome" placeholder="П1 / Тотал б.5.5 / ...">
+            </div>
+            <div class="form-group">
+              <label>Кєф</label>
+              <input type="number" id="f-odds" placeholder="2.15" step="0.01">
             </div>
           </div>
           <div class="form-row">
             <div class="form-group">
-              <label>Кєф</label>
-              <input type="number" id="f-odds" placeholder="2.15" step="0.01">
+              <label>Ставка (₴)</label>
+              <input type="number" id="f-stake" placeholder="100">
             </div>
             <div class="form-group">
               <label>Результат</label>
@@ -177,6 +193,8 @@ tr:hover td{background:var(--surface2)}
             </div>
           </div>
         </div>
+
+        <!-- EXPRESS -->
         <div id="express-fields" style="display:none">
           <div class="form-section-title">Події в експресі</div>
           <div class="legs-container" id="legs-container"></div>
@@ -196,6 +214,7 @@ tr:hover td{background:var(--surface2)}
             </div>
           </div>
         </div>
+
         <hr class="divider">
         <button class="btn-add" onclick="addBet()">ДОДАТИ</button>
         <span class="add-msg" id="add-msg"></span>
@@ -203,8 +222,9 @@ tr:hover td{background:var(--surface2)}
     </div>
   </main>
 </div>
+
 <script>
-const KEY='bettracker_v2';
+const KEY='bettracker_v3';
 const SPORTS=['Хокей','Футбол','CS2','LoL','Valorant','Баскетбол','Інше'];
 const SC={'Хокей':'#4d9fff','Футбол':'#c8f135','CS2':'#ff8c42','LoL':'#9f7aea','Valorant':'#ff4d6d','Баскетбол':'#f6ad55','Інше':'#666'};
 let bets=[],currentType='single',legs=[];
@@ -213,7 +233,7 @@ let pnlC,sportC,resultC;
 function sOpts(val){return SPORTS.map(s=>`<option value="${s}"${s===val?' selected':''}>${s}</option>`).join('');}
 
 function addLeg(){
-  legs.push({id:Date.now(),event:'',sport:'Хокей',odds:''});
+  legs.push({id:Date.now(),event:'',sport:'Хокей',outcome:'',odds:''});
   renderLegs();
 }
 function removeLeg(id){
@@ -228,11 +248,14 @@ function renderLegs(){
         <span class="leg-num">// ПОДІЯ ${i+1}</span>
         ${legs.length>2?`<button class="leg-remove" onclick="removeLeg(${l.id})">×</button>`:''}
       </div>
-      <div class="leg-row">
+      <div class="leg-grid">
         <div class="form-group"><label>Матч</label><input type="text" placeholder="Team A vs Team B" value="${l.event}" oninput="updateLeg(${l.id},'event',this.value)"></div>
         <div class="form-group"><label>Спорт</label><select onchange="updateLeg(${l.id},'sport',this.value)">${sOpts(l.sport)}</select></div>
       </div>
-      <div class="form-group" style="margin-top:10px"><label>Кєф події</label><input type="number" placeholder="1.85" step="0.01" value="${l.odds}" oninput="updateLeg(${l.id},'odds',this.value)"></div>
+      <div class="leg-grid-3">
+        <div class="form-group" style="grid-column:1/3"><label>Ісход</label><input type="text" placeholder="П1 / Тотал б.5.5 / Обидві заб'ють / ..." value="${l.outcome}" oninput="updateLeg(${l.id},'outcome',this.value)"></div>
+        <div class="form-group"><label>Кєф події</label><input type="number" placeholder="1.85" step="0.01" value="${l.odds}" oninput="updateLeg(${l.id},'odds',this.value)"></div>
+      </div>
     </div>`).join('');
   updateTotalOdds();
 }
@@ -286,11 +309,17 @@ function renderBets(){
     const status=b.result==='win'?'<span class="status-win">WIN</span>':b.result==='loss'?'<span class="status-loss">LOSS</span>':'<span class="status-pending">WAIT</span>';
     let eventCell;
     if(b.type==='express'&&b.legs){
-      eventCell=`<div class="event-main">Експрес ×${b.legs.length}</div><div style="margin-top:4px">${b.legs.map(l=>`<div class="event-leg"><span class="sport-dot" style="background:${SC[l.sport]||'#666'}"></span><span style="font-size:11px;color:var(--muted)">[${l.sport}]</span>&nbsp;<span style="font-size:13px">${l.event}</span>&nbsp;<span style="color:var(--accent);font-family:var(--mono);font-size:11px">×${parseFloat(l.odds).toFixed(2)}</span></div>`).join('')}</div>`;
+      eventCell=`<div class="event-main">Експрес ×${b.legs.length}</div><div style="margin-top:5px">${b.legs.map(l=>`
+        <div class="event-leg">
+          <span class="sport-dot" style="background:${SC[l.sport]||'#666'}"></span>
+          <span style="font-size:13px;color:var(--text)">${l.event}</span>
+          ${l.outcome?`<span class="outcome-tag">${l.outcome}</span>`:''}
+          <span style="color:var(--accent);font-family:var(--mono);font-size:11px">×${parseFloat(l.odds).toFixed(2)}</span>
+        </div>`).join('')}</div>`;
     } else {
-      eventCell=`<div class="event-main">${b.event}</div><div style="margin-top:4px"><span class="sport-badge">${b.sport}</span></div>`;
+      eventCell=`<div class="event-main">${b.event}</div><div style="margin-top:5px;display:flex;gap:6px;align-items:center"><span class="sport-badge">${b.sport}</span>${b.outcome?`<span class="outcome-tag">${b.outcome}</span>`:''}</div>`;
     }
-    return`<tr><td style="max-width:280px">${eventCell}</td><td>${b.type==='express'?'<span class="badge-express">EXPRES</span>':'<span class="badge-single">SINGLE</span>'}</td><td style="font-family:var(--mono);white-space:nowrap">${b.stake}₴</td><td style="font-family:var(--mono)">${b.odds}</td><td>${pStr}</td><td>${status}</td><td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td></tr>`;
+    return`<tr><td style="max-width:300px">${eventCell}</td><td>${b.type==='express'?'<span class="badge-express">EXPRES</span>':'<span class="badge-single">SINGLE</span>'}</td><td style="font-family:var(--mono);white-space:nowrap">${b.stake}₴</td><td style="font-family:var(--mono)">${b.odds}</td><td>${pStr}</td><td>${status}</td><td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td></tr>`;
   }).join('')}</tbody></table>`;
 }
 function deleteBet(id){if(!confirm('Видалити?'))return;bets=bets.filter(b=>b.id!==id);save();render();}
@@ -301,12 +330,12 @@ function addBet(){
     const stake=parseFloat(document.getElementById('f-stake').value);
     const odds=parseFloat(document.getElementById('f-odds').value);
     if(!event||isNaN(stake)||isNaN(odds)){msg.textContent='// заповни всі поля';msg.style.color='var(--red)';return;}
-    bets.push({id:Date.now(),type:'single',event,sport:document.getElementById('f-sport').value,stake,odds,result:document.getElementById('f-result').value,date:new Date().toISOString().slice(0,10)});
-    document.getElementById('f-event').value='';document.getElementById('f-stake').value='';document.getElementById('f-odds').value='';
+    bets.push({id:Date.now(),type:'single',event,sport:document.getElementById('f-sport').value,outcome:document.getElementById('f-outcome').value.trim(),stake,odds,result:document.getElementById('f-result').value,date:new Date().toISOString().slice(0,10)});
+    document.getElementById('f-event').value='';document.getElementById('f-stake').value='';document.getElementById('f-odds').value='';document.getElementById('f-outcome').value='';
   } else {
     const stake=parseFloat(document.getElementById('f-stake-exp').value);
     if(isNaN(stake)){msg.textContent='// вкажи суму';msg.style.color='var(--red)';return;}
-    if(legs.some(l=>!l.event.trim()||!parseFloat(l.odds))){msg.textContent='// заповни всі події';msg.style.color='var(--red)';return;}
+    if(legs.some(l=>!l.event.trim()||!parseFloat(l.odds))){msg.textContent='// заповни матч і кєф для кожної події';msg.style.color='var(--red)';return;}
     const totalOdds=legs.reduce((a,l)=>a*parseFloat(l.odds),1);
     bets.push({id:Date.now(),type:'express',legs:legs.map(l=>({...l})),stake,odds:+totalOdds.toFixed(2),result:document.getElementById('f-result-exp').value,date:new Date().toISOString().slice(0,10)});
     legs=[];addLeg();addLeg();document.getElementById('f-stake-exp').value='';
