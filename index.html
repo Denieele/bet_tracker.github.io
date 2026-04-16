@@ -232,6 +232,15 @@ tr:hover td{background:var(--surface2)}
           <button class="type-btn" id="btn-express" onclick="setType('express')">ЕКСПРЕС</button>
         </div>
 
+        <!-- QUICK PASTE -->
+        <div style="background:var(--surface2);border:1px dashed var(--border2);border-radius:10px;padding:14px;margin-bottom:16px">
+          <div style="font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em;margin-bottom:8px">⚡ ШВИДКА ВСТАВКА</div>
+          <div style="font-size:12px;color:var(--muted);margin-bottom:8px">Встав текст з букмекера — автоматично розпізнає команди і дату</div>
+          <textarea id="quick-paste" placeholder="Lynx&#10;16 квіт. 2026 р., 14:00&#10;Nemiga" style="background:var(--surface3);border:1px solid var(--border);color:var(--text);padding:10px;border-radius:8px;font-family:var(--sans);font-size:13px;width:100%;min-height:80px;resize:vertical"></textarea>
+          <button onclick="parsePaste()" style="margin-top:8px;background:var(--accent-dim);border:1px solid rgba(200,241,53,0.3);color:var(--accent);padding:7px 16px;border-radius:6px;font-family:var(--mono);font-size:11px;cursor:pointer;letter-spacing:0.05em">РОЗПІЗНАТИ →</button>
+          <span id="parse-msg" style="font-family:var(--mono);font-size:11px;margin-left:10px"></span>
+        </div>
+
         <div id="single-fields">
           <div class="form-group" style="margin-bottom:12px">
             <label>Подія</label>
@@ -661,6 +670,74 @@ function showPage(p){
     document.getElementById('s-bankroll').value=bank.amount||'';
     document.getElementById('s-goal').value=bank.goal||'';
   }
+}
+
+
+function parsePaste(){
+  const raw=document.getElementById('quick-paste').value.trim();
+  const msg=document.getElementById('parse-msg');
+  if(!raw){msg.textContent='// встав текст';msg.style.color='var(--red)';return;}
+
+  const lines=raw.split('\n').map(l=>l.trim()).filter(l=>l.length>0);
+
+  // Month map for Ukrainian dates
+  const months={'січ':0,'лют':1,'бер':2,'квіт':3,'трав':4,'черв':5,'лип':6,'серп':7,'вер':8,'жовт':9,'лист':10,'груд':11,
+    'jan':0,'feb':1,'mar':2,'apr':3,'may':4,'jun':5,'jul':6,'aug':7,'sep':8,'oct':9,'nov':10,'dec':11};
+
+  // Find date line
+  let dateVal='';
+  let dateLine=-1;
+  for(let i=0;i<lines.length;i++){
+    const l=lines[i].toLowerCase();
+    // Pattern: "16 квіт. 2026 р., 14:00" or "16.04.2026 14:00" or "2026-04-16 14:00"
+    const ukMatch=l.match(/(\d{1,2})\s+([а-яa-z]+)\.?\s+(\d{4})\s*р?\.?,?\s*(\d{1,2}):(\d{2})/);
+    const dotMatch=l.match(/(\d{1,2})\.(\d{1,2})\.(\d{4})\s+(\d{1,2}):(\d{2})/);
+    const isoMatch=l.match(/(\d{4})-(\d{2})-(\d{2})[T\s](\d{2}):(\d{2})/);
+    const timeOnly=l.match(/^(\d{1,2}):(\d{2})$/);
+
+    if(ukMatch){
+      const day=parseInt(ukMatch[1]);
+      const monStr=ukMatch[2].slice(0,4);
+      const mon=months[monStr]??months[Object.keys(months).find(k=>monStr.startsWith(k))||'']??0;
+      const year=parseInt(ukMatch[3]);
+      const h=parseInt(ukMatch[4]);
+      const m=parseInt(ukMatch[5]);
+      const d=new Date(year,mon,day,h,m);
+      dateVal=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0')+'T'+String(h).padStart(2,'0')+':'+String(m).padStart(2,'0');
+      dateLine=i;break;
+    } else if(dotMatch){
+      dateVal=`${dotMatch[3]}-${dotMatch[2].padStart(2,'0')}-${dotMatch[1].padStart(2,'0')}T${dotMatch[4].padStart(2,'0')}:${dotMatch[5]}`;
+      dateLine=i;break;
+    } else if(isoMatch){
+      dateVal=`${isoMatch[1]}-${isoMatch[2]}-${isoMatch[3]}T${isoMatch[4]}:${isoMatch[5]}`;
+      dateLine=i;break;
+    }
+  }
+
+  // Get team lines (everything except date line and empty)
+  const teams=lines.filter((_,i)=>i!==dateLine);
+  let eventName='';
+  if(teams.length===1){eventName=teams[0];}
+  else if(teams.length>=2){
+    // Try to find two team names — usually first and last non-empty non-score lines
+    const clean=teams.filter(t=>!t.match(/^\d+:\d+$/)&&!t.match(/^(live|завершено|скасовано)/i));
+    if(clean.length>=2){eventName=clean[0]+' vs '+clean[clean.length-1];}
+    else{eventName=clean.join(' vs ');}
+  }
+
+  if(!eventName&&!dateVal){msg.textContent='// не вдалось розпізнати';msg.style.color='var(--red)';return;}
+
+  // Fill form
+  if(eventName)document.getElementById('f-event').value=eventName;
+  if(dateVal)document.getElementById('f-date').value=dateVal;
+  document.getElementById('quick-paste').value='';
+
+  let filled=[];
+  if(eventName)filled.push('подію');
+  if(dateVal)filled.push('дату');
+  msg.textContent='// заповнив: '+filled.join(', ')+' ✓';
+  msg.style.color='var(--accent)';
+  setTimeout(()=>msg.textContent='',3000);
 }
 
 function load(){
