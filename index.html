@@ -7,30 +7,10 @@
 <link href="https://fonts.googleapis.com/css2?family=Space+Mono:wght@400;700&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.umd.js"></script>
 <style>
-:root {
-  --bg: #0a0a0a;
-  --surface: #111111;
-  --surface2: #1a1a1a;
-  --border: rgba(255,255,255,0.08);
-  --border2: rgba(255,255,255,0.15);
-  --text: #f0f0f0;
-  --muted: #666;
-  --accent: #c8f135;
-  --accent-dim: rgba(200,241,53,0.12);
-  --red: #ff4d4d;
-  --red-dim: rgba(255,77,77,0.12);
-  --blue: #4d9fff;
-  --blue-dim: rgba(77,159,255,0.12);
-  --mono: 'Space Mono', monospace;
-  --sans: 'DM Sans', sans-serif;
-}
+:root{--bg:#0a0a0a;--surface:#111;--surface2:#1a1a1a;--surface3:#222;--border:rgba(255,255,255,0.08);--border2:rgba(255,255,255,0.15);--text:#f0f0f0;--muted:#666;--accent:#c8f135;--accent-dim:rgba(200,241,53,0.12);--red:#ff4d4d;--red-dim:rgba(255,77,77,0.12);--blue:#4d9fff;--blue-dim:rgba(77,159,255,0.12);--mono:'Space Mono',monospace;--sans:'DM Sans',sans-serif}
 *{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:100vh;font-size:15px}
-
-/* Layout */
 .shell{display:grid;grid-template-columns:220px 1fr;min-height:100vh}
-
-/* Sidebar */
 .sidebar{background:var(--surface);border-right:1px solid var(--border);padding:2rem 1.5rem;display:flex;flex-direction:column;gap:0.5rem;position:sticky;top:0;height:100vh}
 .logo{font-family:var(--mono);font-size:13px;color:var(--accent);letter-spacing:0.1em;margin-bottom:1.5rem;text-transform:uppercase}
 .logo span{color:var(--muted)}
@@ -39,34 +19,29 @@ body{background:var(--bg);color:var(--text);font-family:var(--sans);min-height:1
 .nav-btn.active{background:var(--accent-dim);color:var(--accent);font-weight:500}
 .nav-icon{font-size:16px;width:20px;text-align:center}
 .sidebar-footer{margin-top:auto;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.05em}
-
-/* Main */
 .main{padding:2.5rem;overflow-y:auto}
-.page{display:none}
-.page.active{display:block}
+.page{display:none}.page.active{display:block}
 .page-title{font-family:var(--mono);font-size:11px;color:var(--muted);letter-spacing:0.15em;text-transform:uppercase;margin-bottom:2rem}
-
-/* Metrics */
 .metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:2rem}
 .metric{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.25rem}
 .metric-label{font-size:11px;color:var(--muted);letter-spacing:0.08em;text-transform:uppercase;margin-bottom:8px;font-family:var(--mono)}
 .metric-value{font-family:var(--mono);font-size:26px;font-weight:700;color:var(--text)}
-.metric-value.pos{color:var(--accent)}
-.metric-value.neg{color:var(--red)}
-
-/* Table */
+.metric-value.pos{color:var(--accent)}.metric-value.neg{color:var(--red)}
 .table-wrap{background:var(--surface);border:1px solid var(--border);border-radius:12px;overflow:hidden}
 .table-header{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border)}
 .table-title{font-family:var(--mono);font-size:12px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
 .filter-select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:6px 12px;border-radius:6px;font-family:var(--sans);font-size:13px;cursor:pointer}
 table{width:100%;border-collapse:collapse}
 th{padding:10px 16px;text-align:left;font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase;border-bottom:1px solid var(--border)}
-td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px}
+td{padding:12px 16px;border-bottom:1px solid var(--border);font-size:14px;vertical-align:top}
 tr:last-child td{border-bottom:none}
 tr:hover td{background:var(--surface2)}
-.event-cell{font-weight:500;max-width:200px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.sport-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;font-family:var(--mono);background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
-.type-badge{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:rgba(77,159,255,0.1);color:var(--blue);border:1px solid rgba(77,159,255,0.2)}
+.event-main{font-weight:500;color:var(--text)}
+.event-leg{display:flex;align-items:center;gap:6px;margin-top:3px}
+.sport-dot{width:6px;height:6px;border-radius:50%;flex-shrink:0}
+.sport-badge{display:inline-block;padding:2px 7px;border-radius:4px;font-size:10px;font-family:var(--mono);background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
+.badge-express{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:var(--blue-dim);color:var(--blue);border:1px solid rgba(77,159,255,0.2);font-family:var(--mono)}
+.badge-single{display:inline-block;padding:2px 8px;border-radius:4px;font-size:11px;background:var(--surface2);color:var(--muted);border:1px solid var(--border);font-family:var(--mono)}
 .status-win{display:inline-block;padding:2px 10px;border-radius:4px;font-size:11px;font-family:var(--mono);background:rgba(200,241,53,0.1);color:var(--accent);border:1px solid rgba(200,241,53,0.2)}
 .status-loss{display:inline-block;padding:2px 10px;border-radius:4px;font-size:11px;font-family:var(--mono);background:var(--red-dim);color:var(--red);border:1px solid rgba(255,77,77,0.2)}
 .status-pending{display:inline-block;padding:2px 10px;border-radius:4px;font-size:11px;font-family:var(--mono);background:var(--surface2);color:var(--muted);border:1px solid var(--border)}
@@ -76,26 +51,37 @@ tr:hover td{background:var(--surface2)}
 .del-btn{background:none;border:none;cursor:pointer;color:var(--muted);font-size:18px;padding:2px 6px;border-radius:4px;transition:color 0.15s}
 .del-btn:hover{color:var(--red)}
 .empty{padding:3rem;text-align:center;color:var(--muted);font-family:var(--mono);font-size:13px}
-
-/* Form */
-.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:600px}
-.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:20px}
+.form-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:2rem;max-width:680px}
+.form-section-title{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:12px}
+.form-row{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-bottom:12px}
 .form-group{display:flex;flex-direction:column;gap:6px}
 .form-group label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.1em;text-transform:uppercase}
-.form-group input,.form-group select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px;font-family:var(--sans);font-size:14px;transition:border-color 0.15s}
+.form-group input,.form-group select{background:var(--surface2);border:1px solid var(--border);color:var(--text);padding:10px 12px;border-radius:8px;font-family:var(--sans);font-size:14px;transition:border-color 0.15s;width:100%}
 .form-group input:focus,.form-group select:focus{outline:none;border-color:var(--accent)}
 .form-group input::placeholder{color:var(--muted)}
+.type-toggle{display:flex;gap:8px;margin-bottom:20px}
+.type-btn{flex:1;padding:10px;border:1px solid var(--border);border-radius:8px;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;cursor:pointer;transition:all 0.15s;letter-spacing:0.05em}
+.type-btn.active{background:var(--accent-dim);border-color:rgba(200,241,53,0.4);color:var(--accent)}
+.divider{border:none;border-top:1px solid var(--border);margin:20px 0}
+.legs-container{margin-bottom:16px}
+.leg{background:var(--surface2);border:1px solid var(--border);border-radius:10px;padding:14px;margin-bottom:10px}
+.leg-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.leg-num{font-family:var(--mono);font-size:10px;color:var(--accent);letter-spacing:0.1em}
+.leg-remove{background:none;border:none;cursor:pointer;color:var(--muted);font-size:16px;padding:0 4px;transition:color 0.15s}
+.leg-remove:hover{color:var(--red)}
+.leg-row{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.add-leg-btn{display:flex;align-items:center;gap:8px;padding:10px 14px;border:1px dashed var(--border2);border-radius:8px;background:transparent;color:var(--muted);font-family:var(--mono);font-size:12px;cursor:pointer;width:100%;transition:all 0.15s;margin-bottom:16px}
+.add-leg-btn:hover{border-color:var(--accent);color:var(--accent)}
+.odds-display{background:var(--surface3);border:1px solid var(--border);border-radius:8px;padding:12px 16px;margin-bottom:16px;display:flex;align-items:center;justify-content:space-between}
+.odds-label{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.08em}
+.odds-value{font-family:var(--mono);font-size:18px;color:var(--accent);font-weight:700}
 .btn-add{background:var(--accent);color:#0a0a0a;border:none;padding:11px 24px;border-radius:8px;font-family:var(--mono);font-size:13px;font-weight:700;cursor:pointer;letter-spacing:0.05em;transition:opacity 0.15s}
 .btn-add:hover{opacity:0.85}
 .add-msg{font-family:var(--mono);font-size:12px;margin-left:12px}
-
-/* Charts */
 .charts-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:1.5rem}
 .chart-card{background:var(--surface);border:1px solid var(--border);border-radius:12px;padding:1.5rem}
 .chart-title{font-family:var(--mono);font-size:10px;color:var(--muted);letter-spacing:0.12em;text-transform:uppercase;margin-bottom:1.25rem}
 .chart-wrap{position:relative;width:100%}
-
-/* Responsive */
 @media(max-width:768px){
   .shell{grid-template-columns:1fr}
   .sidebar{position:fixed;bottom:0;left:0;right:0;height:auto;flex-direction:row;padding:0.75rem 1rem;border-right:none;border-top:1px solid var(--border);z-index:100;overflow-x:auto}
@@ -105,7 +91,8 @@ tr:hover td{background:var(--surface2)}
   .main{padding:1.25rem;padding-bottom:80px}
   .metrics{grid-template-columns:repeat(2,1fr)}
   .charts-grid{grid-template-columns:1fr}
-  .form-grid{grid-template-columns:1fr}
+  .form-row{grid-template-columns:1fr}
+  .leg-row{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -116,11 +103,9 @@ tr:hover td{background:var(--surface2)}
     <button class="nav-btn active" onclick="showPage('bets')"><span class="nav-icon">◈</span> Ставки</button>
     <button class="nav-btn" onclick="showPage('analytics')"><span class="nav-icon">◎</span> Аналітика</button>
     <button class="nav-btn" onclick="showPage('add')"><span class="nav-icon">+</span> Додати</button>
-    <div class="sidebar-footer">v1.0 · LOCAL STORAGE</div>
+    <div class="sidebar-footer">v2.0 · LOCAL STORAGE</div>
   </nav>
-
   <main class="main">
-    <!-- BETS PAGE -->
     <div id="page-bets" class="page active">
       <div class="page-title">// ставки</div>
       <div class="metrics" id="metrics"></div>
@@ -128,29 +113,26 @@ tr:hover td{background:var(--surface2)}
         <div class="table-header">
           <span class="table-title">Всі ставки</span>
           <select class="filter-select" id="filter" onchange="renderBets()">
-            <option value="all">Всі</option>
-            <option value="win">Виграш</option>
-            <option value="loss">Програш</option>
-            <option value="pending">Очікують</option>
-            <option value="express">Експрес</option>
+            <option value="all">Всі</option><option value="win">Виграш</option>
+            <option value="loss">Програш</option><option value="pending">Очікують</option>
+            <option value="single">Одиночні</option><option value="express">Експреси</option>
           </select>
         </div>
         <div id="bets-table"></div>
       </div>
     </div>
 
-    <!-- ANALYTICS PAGE -->
     <div id="page-analytics" class="page">
       <div class="page-title">// аналітика</div>
       <div class="metrics" id="metrics2"></div>
       <div class="chart-card" style="margin-top:0">
         <div class="chart-title">P&L по часу</div>
-        <div class="chart-wrap" style="height:220px"><canvas id="pnlChart" role="img" aria-label="P&L по часу">P&L графік</canvas></div>
+        <div class="chart-wrap" style="height:220px"><canvas id="pnlChart" role="img" aria-label="P&L по часу">P&L</canvas></div>
       </div>
       <div class="charts-grid">
         <div class="chart-card">
           <div class="chart-title">По спорту</div>
-          <div class="chart-wrap" style="height:200px"><canvas id="sportChart" role="img" aria-label="По спорту">Спорт</canvas></div>
+          <div class="chart-wrap" style="height:200px"><canvas id="sportChart" role="img" aria-label="Спорт">Спорт</canvas></div>
         </div>
         <div class="chart-card">
           <div class="chart-title">Результати</div>
@@ -159,203 +141,205 @@ tr:hover td{background:var(--surface2)}
       </div>
     </div>
 
-    <!-- ADD PAGE -->
     <div id="page-add" class="page">
       <div class="page-title">// нова ставка</div>
       <div class="form-card">
-        <div class="form-grid">
-          <div class="form-group" style="grid-column:1/-1">
-            <label>Подія</label>
-            <input type="text" id="f-event" placeholder="Team A vs Team B">
+        <div class="form-section-title">Тип ставки</div>
+        <div class="type-toggle">
+          <button class="type-btn active" id="btn-single" onclick="setType('single')">ОДИНОЧНА</button>
+          <button class="type-btn" id="btn-express" onclick="setType('express')">ЕКСПРЕС</button>
+        </div>
+        <div id="single-fields">
+          <div class="form-row">
+            <div class="form-group" style="grid-column:1/-1">
+              <label>Подія</label>
+              <input type="text" id="f-event" placeholder="Team A vs Team B">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Спорт</label>
-            <select id="f-sport">
-              <option>Хокей</option>
-              <option>Футбол</option>
-              <option>CS2</option>
-              <option>LoL</option>
-              <option>Valorant</option>
-              <option>Баскетбол</option>
-              <option>Інше</option>
-            </select>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Спорт</label>
+              <select id="f-sport"><option>Хокей</option><option>Футбол</option><option>CS2</option><option>LoL</option><option>Valorant</option><option>Баскетбол</option><option>Інше</option></select>
+            </div>
+            <div class="form-group">
+              <label>Ставка (₴)</label>
+              <input type="number" id="f-stake" placeholder="100">
+            </div>
           </div>
-          <div class="form-group">
-            <label>Тип</label>
-            <select id="f-type">
-              <option value="single">Одиночна</option>
-              <option value="express">Експрес</option>
-            </select>
-          </div>
-          <div class="form-group">
-            <label>Ставка (₴)</label>
-            <input type="number" id="f-stake" placeholder="100">
-          </div>
-          <div class="form-group">
-            <label>Кєф</label>
-            <input type="number" id="f-odds" placeholder="2.15" step="0.01">
-          </div>
-          <div class="form-group" style="grid-column:1/-1">
-            <label>Результат</label>
-            <select id="f-result">
-              <option value="pending">Очікує</option>
-              <option value="win">Виграш</option>
-              <option value="loss">Програш</option>
-            </select>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Кєф</label>
+              <input type="number" id="f-odds" placeholder="2.15" step="0.01">
+            </div>
+            <div class="form-group">
+              <label>Результат</label>
+              <select id="f-result"><option value="pending">Очікує</option><option value="win">Виграш</option><option value="loss">Програш</option></select>
+            </div>
           </div>
         </div>
+        <div id="express-fields" style="display:none">
+          <div class="form-section-title">Події в експресі</div>
+          <div class="legs-container" id="legs-container"></div>
+          <button class="add-leg-btn" onclick="addLeg()">+ Додати подію</button>
+          <div class="odds-display">
+            <span class="odds-label">ЗАГАЛЬНИЙ КЄФ</span>
+            <span class="odds-value" id="total-odds-display">—</span>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label>Ставка (₴)</label>
+              <input type="number" id="f-stake-exp" placeholder="200">
+            </div>
+            <div class="form-group">
+              <label>Результат</label>
+              <select id="f-result-exp"><option value="pending">Очікує</option><option value="win">Виграш</option><option value="loss">Програш</option></select>
+            </div>
+          </div>
+        </div>
+        <hr class="divider">
         <button class="btn-add" onclick="addBet()">ДОДАТИ</button>
         <span class="add-msg" id="add-msg"></span>
       </div>
     </div>
   </main>
 </div>
-
 <script>
-const KEY = 'bettracker_v1';
-let bets = [];
-let pnlC, sportC, resultC;
+const KEY='bettracker_v2';
+const SPORTS=['Хокей','Футбол','CS2','LoL','Valorant','Баскетбол','Інше'];
+const SC={'Хокей':'#4d9fff','Футбол':'#c8f135','CS2':'#ff8c42','LoL':'#9f7aea','Valorant':'#ff4d6d','Баскетбол':'#f6ad55','Інше':'#666'};
+let bets=[],currentType='single',legs=[];
+let pnlC,sportC,resultC;
 
-function load() {
-  try { bets = JSON.parse(localStorage.getItem(KEY)) || []; } catch(e) { bets = []; }
-  render();
+function sOpts(val){return SPORTS.map(s=>`<option value="${s}"${s===val?' selected':''}>${s}</option>`).join('');}
+
+function addLeg(){
+  legs.push({id:Date.now(),event:'',sport:'Хокей',odds:''});
+  renderLegs();
 }
-
-function save() {
-  localStorage.setItem(KEY, JSON.stringify(bets));
+function removeLeg(id){
+  if(legs.length<=2)return;
+  legs=legs.filter(l=>l.id!==id);
+  renderLegs();
 }
-
-function pnl(b) {
-  if (b.result === 'win') return +(b.stake * (b.odds - 1)).toFixed(2);
-  if (b.result === 'loss') return -b.stake;
+function renderLegs(){
+  document.getElementById('legs-container').innerHTML=legs.map((l,i)=>`
+    <div class="leg">
+      <div class="leg-header">
+        <span class="leg-num">// ПОДІЯ ${i+1}</span>
+        ${legs.length>2?`<button class="leg-remove" onclick="removeLeg(${l.id})">×</button>`:''}
+      </div>
+      <div class="leg-row">
+        <div class="form-group"><label>Матч</label><input type="text" placeholder="Team A vs Team B" value="${l.event}" oninput="updateLeg(${l.id},'event',this.value)"></div>
+        <div class="form-group"><label>Спорт</label><select onchange="updateLeg(${l.id},'sport',this.value)">${sOpts(l.sport)}</select></div>
+      </div>
+      <div class="form-group" style="margin-top:10px"><label>Кєф події</label><input type="number" placeholder="1.85" step="0.01" value="${l.odds}" oninput="updateLeg(${l.id},'odds',this.value)"></div>
+    </div>`).join('');
+  updateTotalOdds();
+}
+function updateLeg(id,field,val){const l=legs.find(l=>l.id===id);if(l)l[field]=val;updateTotalOdds();}
+function updateTotalOdds(){
+  const hasSome=legs.some(l=>parseFloat(l.odds)>0);
+  const total=legs.reduce((a,l)=>{const o=parseFloat(l.odds);return isNaN(o)?a:a*o;},1);
+  document.getElementById('total-odds-display').textContent=hasSome?total.toFixed(2):'—';
+}
+function setType(t){
+  currentType=t;
+  document.getElementById('btn-single').classList.toggle('active',t==='single');
+  document.getElementById('btn-express').classList.toggle('active',t==='express');
+  document.getElementById('single-fields').style.display=t==='single'?'':'none';
+  document.getElementById('express-fields').style.display=t==='express'?'':'none';
+  if(t==='express'&&legs.length===0){addLeg();addLeg();}
+}
+function pnl(b){
+  if(b.result==='win')return+(b.stake*(b.odds-1)).toFixed(2);
+  if(b.result==='loss')return-b.stake;
   return 0;
 }
-
-function calcMetrics() {
-  const settled = bets.filter(b => b.result !== 'pending');
-  const wins = bets.filter(b => b.result === 'win');
-  const totalStake = settled.reduce((a, b) => a + b.stake, 0);
-  const totalPnl = settled.reduce((a, b) => a + pnl(b), 0);
-  const roi = totalStake > 0 ? (totalPnl / totalStake * 100) : 0;
-  const wr = settled.length > 0 ? (wins.length / settled.length * 100) : 0;
-  return { totalPnl, roi, wr, total: bets.length, wins: wins.length, settled: settled.length };
+function calcMetrics(){
+  const settled=bets.filter(b=>b.result!=='pending');
+  const wins=bets.filter(b=>b.result==='win');
+  const totalStake=settled.reduce((a,b)=>a+b.stake,0);
+  const totalPnl=settled.reduce((a,b)=>a+pnl(b),0);
+  const roi=totalStake>0?(totalPnl/totalStake*100):0;
+  const wr=settled.length>0?(wins.length/settled.length*100):0;
+  return{totalPnl,roi,wr,total:bets.length};
 }
-
-function renderMetrics(id) {
-  const m = calcMetrics();
-  document.getElementById(id).innerHTML = `
+function renderMetrics(id){
+  const m=calcMetrics();
+  document.getElementById(id).innerHTML=`
     <div class="metric"><div class="metric-label">Ставок</div><div class="metric-value">${m.total}</div></div>
-    <div class="metric"><div class="metric-label">Вінрейт</div><div class="metric-value ${m.wr >= 50 ? 'pos' : 'neg'}">${m.wr.toFixed(1)}%</div></div>
-    <div class="metric"><div class="metric-label">ROI</div><div class="metric-value ${m.roi >= 0 ? 'pos' : 'neg'}">${m.roi >= 0 ? '+' : ''}${m.roi.toFixed(1)}%</div></div>
-    <div class="metric"><div class="metric-label">P&L</div><div class="metric-value ${m.totalPnl >= 0 ? 'pos' : 'neg'}">${m.totalPnl >= 0 ? '+' : ''}${m.totalPnl.toFixed(0)}₴</div></div>
-  `;
+    <div class="metric"><div class="metric-label">Вінрейт</div><div class="metric-value ${m.wr>=50?'pos':'neg'}">${m.wr.toFixed(1)}%</div></div>
+    <div class="metric"><div class="metric-label">ROI</div><div class="metric-value ${m.roi>=0?'pos':'neg'}">${m.roi>=0?'+':''}${m.roi.toFixed(1)}%</div></div>
+    <div class="metric"><div class="metric-label">P&L</div><div class="metric-value ${m.totalPnl>=0?'pos':'neg'}">${m.totalPnl>=0?'+':''}${m.totalPnl.toFixed(0)}₴</div></div>`;
 }
-
-function renderBets() {
-  const filter = document.getElementById('filter').value;
-  let list = [...bets].reverse();
-  if (filter === 'express') list = list.filter(b => b.type === 'express');
-  else if (filter !== 'all') list = list.filter(b => b.result === filter);
-  const cont = document.getElementById('bets-table');
-  if (!list.length) { cont.innerHTML = '<div class="empty">// немає ставок</div>'; return; }
-  cont.innerHTML = `<table>
-    <thead><tr><th>Подія</th><th>Спорт</th><th>Тип</th><th>Ставка</th><th>Кєф</th><th>P&L</th><th>Статус</th><th></th></tr></thead>
-    <tbody>${list.map(b => {
-      const p = pnl(b);
-      const pStr = b.result === 'pending' ? '<span class="pnl-neutral">—</span>' : `<span class="${p >= 0 ? 'pnl-pos' : 'pnl-neg'}">${p >= 0 ? '+' : ''}${p.toFixed(0)}₴</span>`;
-      const status = b.result === 'win' ? '<span class="status-win">WIN</span>' : b.result === 'loss' ? '<span class="status-loss">LOSS</span>' : '<span class="status-pending">WAIT</span>';
-      const type = b.type === 'express' ? '<span class="type-badge">EXPRES</span>' : '—';
-      return `<tr>
-        <td class="event-cell">${b.event}</td>
-        <td><span class="sport-badge">${b.sport}</span></td>
-        <td>${type}</td>
-        <td style="font-family:var(--mono)">${b.stake}₴</td>
-        <td style="font-family:var(--mono)">${b.odds}</td>
-        <td>${pStr}</td>
-        <td>${status}</td>
-        <td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td>
-      </tr>`;
-    }).join('')}</tbody>
-  </table>`;
+function renderBets(){
+  const filter=document.getElementById('filter').value;
+  let list=[...bets].reverse();
+  if(filter==='single')list=list.filter(b=>b.type==='single');
+  else if(filter==='express')list=list.filter(b=>b.type==='express');
+  else if(filter!=='all')list=list.filter(b=>b.result===filter);
+  const cont=document.getElementById('bets-table');
+  if(!list.length){cont.innerHTML='<div class="empty">// немає ставок</div>';return;}
+  cont.innerHTML=`<table><thead><tr><th>Подія</th><th>Тип</th><th>Ставка</th><th>Кєф</th><th>P&L</th><th>Статус</th><th></th></tr></thead><tbody>${list.map(b=>{
+    const p=pnl(b);
+    const pStr=b.result==='pending'?'<span class="pnl-neutral">—</span>':`<span class="${p>=0?'pnl-pos':'pnl-neg'}">${p>=0?'+':''}${p.toFixed(0)}₴</span>`;
+    const status=b.result==='win'?'<span class="status-win">WIN</span>':b.result==='loss'?'<span class="status-loss">LOSS</span>':'<span class="status-pending">WAIT</span>';
+    let eventCell;
+    if(b.type==='express'&&b.legs){
+      eventCell=`<div class="event-main">Експрес ×${b.legs.length}</div><div style="margin-top:4px">${b.legs.map(l=>`<div class="event-leg"><span class="sport-dot" style="background:${SC[l.sport]||'#666'}"></span><span style="font-size:11px;color:var(--muted)">[${l.sport}]</span>&nbsp;<span style="font-size:13px">${l.event}</span>&nbsp;<span style="color:var(--accent);font-family:var(--mono);font-size:11px">×${parseFloat(l.odds).toFixed(2)}</span></div>`).join('')}</div>`;
+    } else {
+      eventCell=`<div class="event-main">${b.event}</div><div style="margin-top:4px"><span class="sport-badge">${b.sport}</span></div>`;
+    }
+    return`<tr><td style="max-width:280px">${eventCell}</td><td>${b.type==='express'?'<span class="badge-express">EXPRES</span>':'<span class="badge-single">SINGLE</span>'}</td><td style="font-family:var(--mono);white-space:nowrap">${b.stake}₴</td><td style="font-family:var(--mono)">${b.odds}</td><td>${pStr}</td><td>${status}</td><td><button class="del-btn" onclick="deleteBet(${b.id})">×</button></td></tr>`;
+  }).join('')}</tbody></table>`;
 }
-
-function deleteBet(id) {
-  if (!confirm('Видалити ставку?')) return;
-  bets = bets.filter(b => b.id !== id);
-  save(); render();
-}
-
-function addBet() {
-  const event = document.getElementById('f-event').value.trim();
-  const stake = parseFloat(document.getElementById('f-stake').value);
-  const odds = parseFloat(document.getElementById('f-odds').value);
-  const msg = document.getElementById('add-msg');
-  if (!event || isNaN(stake) || isNaN(odds)) {
-    msg.textContent = '// заповни всі поля'; msg.style.color = 'var(--red)'; return;
+function deleteBet(id){if(!confirm('Видалити?'))return;bets=bets.filter(b=>b.id!==id);save();render();}
+function addBet(){
+  const msg=document.getElementById('add-msg');
+  if(currentType==='single'){
+    const event=document.getElementById('f-event').value.trim();
+    const stake=parseFloat(document.getElementById('f-stake').value);
+    const odds=parseFloat(document.getElementById('f-odds').value);
+    if(!event||isNaN(stake)||isNaN(odds)){msg.textContent='// заповни всі поля';msg.style.color='var(--red)';return;}
+    bets.push({id:Date.now(),type:'single',event,sport:document.getElementById('f-sport').value,stake,odds,result:document.getElementById('f-result').value,date:new Date().toISOString().slice(0,10)});
+    document.getElementById('f-event').value='';document.getElementById('f-stake').value='';document.getElementById('f-odds').value='';
+  } else {
+    const stake=parseFloat(document.getElementById('f-stake-exp').value);
+    if(isNaN(stake)){msg.textContent='// вкажи суму';msg.style.color='var(--red)';return;}
+    if(legs.some(l=>!l.event.trim()||!parseFloat(l.odds))){msg.textContent='// заповни всі події';msg.style.color='var(--red)';return;}
+    const totalOdds=legs.reduce((a,l)=>a*parseFloat(l.odds),1);
+    bets.push({id:Date.now(),type:'express',legs:legs.map(l=>({...l})),stake,odds:+totalOdds.toFixed(2),result:document.getElementById('f-result-exp').value,date:new Date().toISOString().slice(0,10)});
+    legs=[];addLeg();addLeg();document.getElementById('f-stake-exp').value='';
   }
-  bets.push({
-    id: Date.now(), event,
-    sport: document.getElementById('f-sport').value,
-    type: document.getElementById('f-type').value,
-    stake, odds,
-    result: document.getElementById('f-result').value,
-    date: new Date().toISOString().slice(0, 10)
-  });
-  save(); render();
-  document.getElementById('f-event').value = '';
-  document.getElementById('f-stake').value = '';
-  document.getElementById('f-odds').value = '';
-  msg.textContent = '// додано!'; msg.style.color = 'var(--accent)';
-  setTimeout(() => msg.textContent = '', 2000);
+  save();render();
+  msg.textContent='// додано!';msg.style.color='var(--accent)';
+  setTimeout(()=>msg.textContent='',2000);
 }
-
-function renderCharts() {
-  const settled = bets.filter(b => b.result !== 'pending').sort((a, b) => a.date.localeCompare(b.date));
-  let cum = 0;
-  const labels = settled.map(b => b.date.slice(5));
-  const data = settled.map(b => { cum += pnl(b); return +cum.toFixed(2); });
-
-  if (pnlC) pnlC.destroy();
-  pnlC = new Chart(document.getElementById('pnlChart'), {
-    type: 'line',
-    data: { labels, datasets: [{ label: 'P&L', data, borderColor: cum >= 0 ? '#c8f135' : '#ff4d4d', backgroundColor: cum >= 0 ? 'rgba(200,241,53,0.05)' : 'rgba(255,77,77,0.05)', fill: true, tension: 0.4, pointRadius: 4, pointBackgroundColor: cum >= 0 ? '#c8f135' : '#ff4d4d' }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { display: false } }, scales: { y: { grid: { color: 'rgba(255,255,255,0.04)' }, ticks: { color: '#666', callback: v => v + '₴', font: { family: 'Space Mono', size: 11 } } }, x: { grid: { display: false }, ticks: { color: '#666', font: { family: 'Space Mono', size: 11 } } } } }
-  });
-
-  const sports = {};
-  bets.forEach(b => { sports[b.sport] = (sports[b.sport] || 0) + 1; });
-  if (sportC) sportC.destroy();
-  sportC = new Chart(document.getElementById('sportChart'), {
-    type: 'doughnut',
-    data: { labels: Object.keys(sports), datasets: [{ data: Object.values(sports), backgroundColor: ['#c8f135', '#4d9fff', '#ff4d4d', '#9f7aea', '#f6ad55', '#68d391', '#fc8181'], borderWidth: 0 }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#666', font: { family: 'Space Mono', size: 11 }, boxWidth: 10, padding: 12 } } } }
-  });
-
-  const wins = bets.filter(b => b.result === 'win').length;
-  const losses = bets.filter(b => b.result === 'loss').length;
-  const pending = bets.filter(b => b.result === 'pending').length;
-  if (resultC) resultC.destroy();
-  resultC = new Chart(document.getElementById('resultChart'), {
-    type: 'doughnut',
-    data: { labels: ['WIN', 'LOSS', 'WAIT'], datasets: [{ data: [wins, losses, pending], backgroundColor: ['#c8f135', '#ff4d4d', '#333'], borderWidth: 0 }] },
-    options: { responsive: true, maintainAspectRatio: false, plugins: { legend: { position: 'bottom', labels: { color: '#666', font: { family: 'Space Mono', size: 11 }, boxWidth: 10, padding: 12 } } } }
-  });
+function renderCharts(){
+  const settled=bets.filter(b=>b.result!=='pending').sort((a,b)=>a.date.localeCompare(b.date));
+  let cum=0;
+  const labels=settled.map(b=>b.date.slice(5));
+  const data=settled.map(b=>{cum+=pnl(b);return+cum.toFixed(2);});
+  if(pnlC)pnlC.destroy();
+  pnlC=new Chart(document.getElementById('pnlChart'),{type:'line',data:{labels,datasets:[{label:'P&L',data,borderColor:cum>=0?'#c8f135':'#ff4d4d',backgroundColor:cum>=0?'rgba(200,241,53,0.05)':'rgba(255,77,77,0.05)',fill:true,tension:0.4,pointRadius:4,pointBackgroundColor:cum>=0?'#c8f135':'#ff4d4d'}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{display:false}},scales:{y:{grid:{color:'rgba(255,255,255,0.04)'},ticks:{color:'#666',callback:v=>v+'₴',font:{family:'Space Mono',size:11}}},x:{grid:{display:false},ticks:{color:'#666',font:{family:'Space Mono',size:11}}}}}});
+  const sports={};
+  bets.forEach(b=>{if(b.type==='express'&&b.legs){b.legs.forEach(l=>{sports[l.sport]=(sports[l.sport]||0)+1;});}else{sports[b.sport]=(sports[b.sport]||0)+1;}});
+  if(sportC)sportC.destroy();
+  sportC=new Chart(document.getElementById('sportChart'),{type:'doughnut',data:{labels:Object.keys(sports),datasets:[{data:Object.values(sports),backgroundColor:Object.keys(sports).map(s=>SC[s]||'#666'),borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{family:'Space Mono',size:11},boxWidth:10,padding:12}}}}});
+  const wins=bets.filter(b=>b.result==='win').length,losses=bets.filter(b=>b.result==='loss').length,pending=bets.filter(b=>b.result==='pending').length;
+  if(resultC)resultC.destroy();
+  resultC=new Chart(document.getElementById('resultChart'),{type:'doughnut',data:{labels:['WIN','LOSS','WAIT'],datasets:[{data:[wins,losses,pending],backgroundColor:['#c8f135','#ff4d4d','#333'],borderWidth:0}]},options:{responsive:true,maintainAspectRatio:false,plugins:{legend:{position:'bottom',labels:{color:'#888',font:{family:'Space Mono',size:11},boxWidth:10,padding:12}}}}});
 }
-
-function render() {
-  renderMetrics('metrics');
-  renderBets();
+function render(){renderMetrics('metrics');renderBets();}
+function showPage(p){
+  document.querySelectorAll('.page').forEach(el=>el.classList.remove('active'));
+  document.querySelectorAll('.nav-btn').forEach(el=>el.classList.remove('active'));
+  document.getElementById('page-'+p).classList.add('active');
+  document.querySelectorAll('.nav-btn')[['bets','analytics','add'].indexOf(p)].classList.add('active');
+  if(p==='analytics'){renderMetrics('metrics2');renderCharts();}
 }
-
-function showPage(p) {
-  document.querySelectorAll('.page').forEach(el => el.classList.remove('active'));
-  document.querySelectorAll('.nav-btn').forEach(el => el.classList.remove('active'));
-  document.getElementById('page-' + p).classList.add('active');
-  const idx = ['bets', 'analytics', 'add'].indexOf(p);
-  document.querySelectorAll('.nav-btn')[idx].classList.add('active');
-  if (p === 'analytics') { renderMetrics('metrics2'); renderCharts(); }
-}
-
+function load(){try{bets=JSON.parse(localStorage.getItem(KEY))||[];}catch(e){bets=[];}render();}
+function save(){localStorage.setItem(KEY,JSON.stringify(bets));}
 load();
 </script>
 </body>
